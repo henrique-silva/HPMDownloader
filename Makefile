@@ -8,13 +8,13 @@ SRC_DIR=src/
 INC_DIR=inc/
 BIN_DIR=bin/
 
-MTCA_INC=../MTCALib/inc/
-MTCA_LIB=../MTCALib/lib/
+MTCA_INC=./MTCALib/inc/
+MTCA_LIB=./MTCALib/lib/
 
 #Files ------------------------------------------------------------------------
 
 #MTCALib
-MTCALIB_LIB = ../MTCALib/lib/libmtca.a
+MTCALIB_LIB = ./MTCALib/lib/libmtca.a
 
 #HPMDownloder
 HPMDOWNLOADER_SRC= $(wildcard $(SRC_DIR)*.c)
@@ -26,9 +26,9 @@ HPMDOWNLOADER_BIN= hpmdownloader.exe
 #Rules ------------------------------------------------------------------------
 all: $(HPMDOWNLOADER_OBJ) $(MTCALIB_LIB) $(HPMDOWNLOADER_BIN)
 
-$(MTCALIB_LIB) : 
+$(MTCALIB_LIB) :
 	@make -s -C ../MTCALib
-	
+
 $(HPMDOWNLOADER_OBJ): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@echo "Construction of $@ from $<"
 	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(MTCA_INC) $< -o $@
@@ -38,7 +38,7 @@ $(HPMDOWNLOADER_BIN) : $(HPMDOWNLOADER_OBJ)
 	@echo "Construction of the HPMDownloader executable"
 	gcc -L $(MTCA_LIB) -o $(BIN_DIR)$(HPMDOWNLOADER_BIN) $(HPMDOWNLOADER_OBJ) -lmtca -lcrypto -lssl
 	@echo ""
-	
+
 clean: mrproper
 	@echo "removing objects"
 	-rm $(OBJ_DIR)*.o
@@ -47,7 +47,7 @@ clean: mrproper
 	@echo "removing exec"
 	-rm $(BIN_DIR)$(HPMDOWNLOADER_BIN)
 	@echo ""
-	
+
 mrproper:
 	@echo "Removing all *~ files"
 	-find . -name "*~" -exec rm {} \;
