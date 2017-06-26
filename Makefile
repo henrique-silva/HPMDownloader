@@ -24,10 +24,11 @@ HPMDOWNLOADER_OBJ=$(HPMDOWNLOADER_SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 HPMDOWNLOADER_BIN= hpmdownloader.exe
 
 #Rules ------------------------------------------------------------------------
-all: $(HPMDOWNLOADER_OBJ) $(MTCALIB_LIB) $(HPMDOWNLOADER_BIN)
+all: $(MTCALIB_LIB) $(HPMDOWNLOADER_OBJ) $(HPMDOWNLOADER_BIN)
 
-$(MTCALIB_LIB) :
-	@make -s -C ../MTCALib
+$(MTCALIB_LIB):
+	@echo "Construction of MTCALib "
+	@make -s -C ./MTCALib
 
 $(HPMDOWNLOADER_OBJ): $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@echo "Construction of $@ from $<"
