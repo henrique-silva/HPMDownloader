@@ -1,0 +1,16 @@
+1) Library compilation
+----------------------
+	cd MTCALib
+	make
+	
+2) Example compilation
+----------------------
+	cd MTCALib
+	reset: gcc -I inc/ -L lib/ -o resetGen example/reset.c -lmtca
+	jtag switch:  gcc -I inc/ -L lib/ -o jtagSwitch example/jtag.c -lmtca
+
+3) Execute program
+------------------
+	cd MTCALib
+	reset - help: ./resetGen
+	jtag - help: ./jtagSwitch
